@@ -1,3 +1,4 @@
+import { Exclude, Expose } from "class-transformer";
 import { IsEmail, IsNotEmpty, IsString } from "class-validator";
 import { IsUserNameUnique } from "./is-username-unique.validator";
 
@@ -5,6 +6,9 @@ export class User {
   id: number;
 
   // userName decorators
+  @Expose({
+    name: 'username'
+  })
   @IsUserNameUnique({
     message: 'userName should be unique.'
   })
@@ -18,6 +22,9 @@ export class User {
   // end
 
   // email decorators
+  @Expose({
+    name: 'email'
+  })
   @IsEmail({}, {
     message: 'email should be a valid email.'
   })
@@ -25,13 +32,22 @@ export class User {
   // end
 
   // password decorators
+  @Expose({
+    name: 'password'
+  })
   @IsNotEmpty({
     message: 'password is required.'
+  })
+  @Exclude({
+    toPlainOnly: true
   })
   password: string;
   // end
 
   // fullName decorators
+  @Expose({
+    name: 'fullName'
+  })
   @IsNotEmpty({
     message: 'fullName is required.'
   })
@@ -41,5 +57,10 @@ export class User {
   fullName: string;
   // end
 
+  // registerDate decorators
+  @Expose({
+    name: 'joinDate'
+  })
   registerDate: Date;
+  // end
 }
